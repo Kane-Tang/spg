@@ -1,0 +1,263 @@
+<title>Software Process Generator</title>
+<h1>Software Process Generator</h1>
+<b> <!--
+Here is the top page of SPG
+<hr />
+-->
+	<head>
+<script src="js/jquery.js"></script>
+	</head> <script>
+var modelName = ['waterfall', 'incremental', 'spiral', 'xp', 'scrum', 'crossplatform', 'sis'];
+
+var link = [ 'waterfall/wpage1.html',
+             'incremental/ipage1.html',
+             '#',
+             'xtreme/xpage1.html',
+            //  'agile/apage1.html',
+             'scrum/index.html',
+             'crossplatform/cpage1.html',
+             'sis/ipage1.html' ];
+
+function setPara() {
+  var s = prompt("Set # of spiral cycles. Support 1, 2, 3. Default 3.", "3");
+  if(s === null) return;
+  var cycle = parseInt(s);
+  if(isNaN(cycle) || cycle < 1 || cycle > 3) cycle = 3;
+  window.location.href="prepare.php?cycle=" + cycle;
+}
+
+// find optimal solution
+function spg() {
+  $.ajax({
+    type: 'POST',
+    url: 'simulate.php',
+    datatype: 'json',
+    data: $("#inputs").serialize(), 
+    success: function(ret, s) {
+      var text = "";
+      for(i = 0; i < modelName.length; i++) {
+        if(modelName[i] in ret) {
+          if(modelName[i] == "spiral")
+            text += "<a href=" + link[i] + " onclick='setPara();return false'>" + modelName[i] + "</a> : ";
+          else
+            text += "<a href=" + link[i] + ">" + modelName[i] + "</a> : ";
+            
+          if(modelName[i] == ret['opt']) text += "<font color=red>" + ret[modelName[i]] + " (optimal)</font><br><br>";
+          else text += ret[modelName[i]] + "<br><br>";
+        }
+      }
+      document.getElementById("result").innerHTML = text;
+      document.getElementById("result").scrollIntoView();
+    }
+  });
+  return false;
+}
+
+function spgstat() {
+var ut = $("input:radio[name='usertype']:checked").val();
+  if($("input:radio[name='usertype']:checked").val() == null
+      || $("input:radio[name='understand']:checked").val() == null
+      || $("input:radio[name='clarity']:checked").val() == null) {
+    alert("Please fill out the survey form before submit. Thank you.");
+    return false;
+  }
+  $.ajax({
+    type: 'POST',
+    url: 'survey.php',
+    data: $("#questionnaire").serialize(), 
+    success: function(ret, s) {
+      if(ret == 0) {
+        alert("Successfully submitted! Thanks!");
+      } else {
+        alert("Failed!");
+      }
+    }
+    });
+  return false;
+}
+</script>
+
+	<body>
+		<form id="inputs" onsubmit="return false" action="" method="post"
+			enctype="text/plain">
+			<!--
+    <p>
+      Project Name (optional): &nbsp;<input type="text" name="ProjectTitle" size="60" maxlength="80" alt="name" /><br>
+      E-Mail Address (optional): &nbsp;<input type="text" name="email" size="60" maxlength="80" alt="email" /> <br><br>
+-->
+			Based upon your project's needs, please select appropriate value for
+			each parameter.<br> If you do not use a parameter, you need not
+			select any value for that parameter.<br> In the calculation of
+			optimal software process model, that parameter will be ignored.
+			</p>
+			<table border="1" cellpadding="10" width="650px">
+				<tr>
+					<th>Parameter</th>
+					<th>Value</th>
+				</tr>
+				<tr>
+					<td>Early Functionality</td>
+					<td><input type=radio name="func" value="0" alt="func1" />
+						Iteratively introduce features &nbsp;&nbsp; <input type=radio
+						name="func" value="1" alt="func2" /> Only produce final product</td>
+				</tr>
+				<tr>
+					<td>Feature Adaptation</td>
+					<td><input type=radio name="adap" value="0" alt="adap1" />
+						Impossible &nbsp;&nbsp; <input type=radio name="adap" value="1"
+						alt="adap2" /> Flexible</td>
+				</tr>
+				<tr>
+					<td>User Involvement</td>
+					<td>(Initially) <input type=radio name="invo" value="0"
+						alt="invo0" /> 0% &nbsp;&nbsp; <input type=radio name="invo"
+						value="1" alt="invo1" /> 10% &nbsp;&nbsp; <input type=radio
+						name="invo" value="2" alt="invo2" /> 20% &nbsp;&nbsp; <input
+						type=radio name="invo" value="3" alt="invo3" /> 30% &nbsp;&nbsp;
+						<input type=radio name="invo" value="4" alt="invo4" /> 40%
+						&nbsp;&nbsp; <input type=radio name="invo" value="5" alt="invo5" />
+						50% &nbsp;&nbsp; <input type=radio name="invo" value="6"
+						alt="invo6" /> 60% &nbsp;&nbsp; <input type=radio name="invo"
+						value="7" alt="invo7" /> 70% &nbsp;&nbsp; <input type=radio
+						name="invo" value="8" alt="invo8" /> 80% &nbsp;&nbsp; <input
+						type=radio name="invo" value="9" alt="invo9" /> 90% &nbsp;&nbsp;
+						<input type=radio name="invo" value="10" alt="invo10" /> 100%
+						(Frequent feedback)
+					</td>
+				</tr>
+				<tr>
+					<td>Documentation</td>
+					<td><input type=radio name="docu" value="0" alt="docu1" />
+						Not produced &nbsp;&nbsp; <input type=radio name="docu" value="1"
+						alt="docu2" /> Produced</td>
+				</tr>
+				<tr>
+					<td>Experienced Team</td>
+					<td><input type=radio name="expe" value="0" alt="expe1" />
+						Requested &nbsp;&nbsp; <input type=radio name="expe" value="1"
+						alt="expe2" /> Not Required</td>
+				</tr>
+				<tr>
+					<td>Model Type</td>
+					<td>(Linear) <input type=radio name="tmode" value="0"
+						alt="tmode0" /> 0% &nbsp;&nbsp; <input type=radio name="tmode"
+						value="1" alt="tmode1" /> 10% &nbsp;&nbsp; <input type=radio
+						name="tmode" value="2" alt="tmode2" /> 20% &nbsp;&nbsp; <input
+						type=radio name="tmode" value="3" alt="tmode3" /> 30%
+						&nbsp;&nbsp; <input type=radio name="tmode" value="4" alt="tmode4" />
+						40% &nbsp;&nbsp; <input type=radio name="tmode" value="5"
+						alt="tmode5" /> 50% &nbsp;&nbsp; <input type=radio name="tmode"
+						value="6" alt="tmode6" /> 60% &nbsp;&nbsp; <input type=radio
+						name="tmode" value="7" alt="tmode7" /> 70% &nbsp;&nbsp; <input
+						type=radio name="tmode" value="8" alt="tmode8" /> 80%
+						&nbsp;&nbsp; <input type=radio name="tmode" value="9" alt="tmode9" />
+						90% &nbsp;&nbsp; <input type=radio name="tmode" value="10"
+						alt="tmode10" /> 100% (Iterative)
+					</td>
+				</tr>
+				<tr>
+					<td>Planning and Scheduling</td>
+					<td><input type=radio name="sche" value="0" alt="sche1" />
+						Upfront &nbsp;&nbsp; <input type=radio name="sche" value="1"
+						alt="sche2" /> Continuous</td>
+				</tr>
+				<tr>
+					<td>Risk Mitigation</td>
+					<td><input type=radio name="miti" value="0" alt="miti1" />
+						Yes &nbsp;&nbsp; <input type=radio name="miti" value="1"
+						alt="miti2" /> No</td>
+				</tr>
+				<tr>
+					<td>Project Size</td>
+					<td>(Small) <input type=radio name="psize" value="0"
+						alt="psize0" /> 0% &nbsp;&nbsp; <input type=radio name="psize"
+						value="1" alt="psize1" /> 10% &nbsp;&nbsp; <input type=radio
+						name="psize" value="2" alt="psize2" /> 20% &nbsp;&nbsp; <input
+						type=radio name="psize" value="3" alt="psize3" /> 30%
+						&nbsp;&nbsp; <input type=radio name="psize" value="4" alt="psize4" />
+						40% &nbsp;&nbsp; <input type=radio name="psize" value="5"
+						alt="psize5" /> 50% &nbsp;&nbsp; <input type=radio name="psize"
+						value="6" alt="psize6" /> 60% &nbsp;&nbsp; <input type=radio
+						name="psize" value="7" alt="psize7" /> 70% &nbsp;&nbsp; <input
+						type=radio name="psize" value="8" alt="psize8" /> 80%
+						&nbsp;&nbsp; <input type=radio name="psize" value="9" alt="psize9" />
+						90% &nbsp;&nbsp; <input type=radio name="psize" value="10"
+						alt="psize10" /> 100% (Large)
+					</td>
+				</tr>
+				<tr>
+					<td>Prototype</td>
+					<td><input type=radio name="prot" value="0" alt="prot1" />
+						Used &nbsp;&nbsp; <input type=radio name="prot" value="1"
+						alt="prot2" /> Not Used</td>
+				</tr>
+				<tr>
+					<td>CrossPlatform</td>
+					<td><input type=radio name="pcross" value="0" alt="pcross1" />
+						No &nbsp;&nbsp; <input type=radio name="pcross" value="1"
+						alt="pcross2" /> Yes</td>
+				</tr>
+				</tr>
+			</table>
+			<br>
+			<input type="submit" value="SubmitParameters" alt="submit1"
+				onclick="spg()" /><br>
+			<p id="result"></p>
+		</form>
+
+		<hr>
+		<p>
+		<form id="questionnaire" onsubmit="return false" action=""
+			method="post" enctype="text/plain">
+			<p>After you have tried SPG, please fill out the following
+				questionnaire:
+			<p>
+			<table border="1" cellpadding="10" width="650px">
+
+				<tr>
+					<td>What type of user are you?</td>
+					<td><input type=radio name="usertype" value="1"
+						alt="usertype1" /> CS1530 student &nbsp;&nbsp; <input type=radio
+						name="usertype" value="2" alt="usertype2" /> CS1631 student
+						&nbsp;&nbsp; <input type=radio name="usertype" value="3"
+						alt="usertype3" /> Graduate student &nbsp;&nbsp; <input
+						type=radio name="usertype" value="4" alt="usertype4" />
+						Professional &nbsp;&nbsp; <input type=radio name="usertype"
+						value="5" alt="usertype5" /> Other &nbsp;&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>Does this tool enhance your understanding of the software
+						process models?</td>
+					<td><input type=radio name="understand" value="0"
+						alt="understand1" /> Not at all &nbsp;&nbsp; <input type=radio
+						name="understand" value="25" alt="understand2" /> A little
+						&nbsp;&nbsp; <input type=radio name="understand" value="50"
+						alt="understand3" /> A lot &nbsp;&nbsp; <input type=radio
+						name="understand" value="75" alt="understand4" /> Quite a lot
+						&nbsp;&nbsp; <input type=radio name="understand" value="100"
+						alt="understand5" /> Very much &nbsp;&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>Are the parameters and their values clearly described?</td>
+					<td><input type=radio name="clarity" value="0" alt="clarity1" />
+						Not at all &nbsp;&nbsp; <input type=radio name="clarity"
+						value="25" alt="clarity2" /> A little &nbsp;&nbsp; <input
+						type=radio name="clarity" value="50" alt="clarity3" /> A lot
+						&nbsp;&nbsp; <input type=radio name="clarity" value="75"
+						alt="clarity4" /> Quite a lot &nbsp;&nbsp; <input type=radio
+						name="clarity" value="100" alt="clarity5" /> Very much
+						&nbsp;&nbsp;</td>
+				</tr>
+
+
+			</table>
+			<br> Please enter your comments:<br>
+			<br>
+			<input type="text" name="comments" size="100" maxlength="400"
+				alt="comment1" /><br> <br>
+			<input type="submit" value="SubmitQuestionnaire" alt="submit1"
+				onclick="spgstat()" /><br>
+		</form>
+	</body>

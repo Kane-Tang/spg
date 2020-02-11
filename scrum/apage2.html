@@ -1,0 +1,112 @@
+<!-- <button onclick="clearBox()"> clear!</button> -->
+<!-- <p id="dd">123</p> -->
+			
+<style>
+.button {
+	padding: 10px 10px;
+	font-size: 15px;
+}
+
+.img {
+	width: 1500;
+	height: 780;
+}
+</style>
+
+<title>Scrum Software Process Model</title>
+<h1>Scrum Software Process Model</h1>
+
+<br><br>
+Scrum Software Process Model
+<br>
+<img src="seke18PMscrum.jpg">
+<br>
+
+<b>
+<br><br>Stage:
+<br/>
+<font color=red size="5px">
+Abstract and Design
+<div id="stage"><br></div>
+</font>
+
+<button class="button" id="nextButton" onclick="location.href='apage3.html';">next: implement</button>
+<br>
+`
+<br>
+<div>
+	<h1>Sprint planning</h1>
+	Sprint planning is a meeting that is held between the Scrum Master, Product Owner and the rest of the Agile team. 
+	It is usually timeboxed to an hour and the team members meet to discuss and create a sprint backlog – decide what 
+	tasks from the backlog should be worked on in a certain sprint. The acceptance criteria are also discussed, and 
+	effort needed to perform the work is estimated. The top priority tasks are usually planned first and if there is 
+	room for lesser priority tasks, they are added after. What the team takes on is dependent on the length of the 
+	sprint, the team’s capacity, and velocity.
+
+	<br>
+	<h2>An example sprint backlog:</h2>
+</div>
+
+<div id="content">
+</div>
+
+<script>
+	document.getElementById("nextButton").disabled = true;
+	var backlogList = JSON.parse(localStorage.getItem("backlogList"));
+	if (localStorage.getItem("firstSprint") === null) {
+		localStorage.setItem("firstSprint", JSON.stringify(true));
+	}
+	if (JSON.parse(localStorage.getItem("firstSprint"))) {
+		var initial_content = "<h3>Choose what do you want to implement in this sprint</h3>\
+		<button onclick=\"onclick1()\">select</button>\
+		<ul>\
+			<li id=\"1-1\"></li>\
+			<li id=\"1-2\"></li>\
+			<li id=\"1-3\"></li>\
+		</ul>\
+		<button onclick=\"onclick2()\">select</button>\
+		<ul>\
+			<li id=\"2-1\"></li>\
+			<li id=\"2-2\"></li>\
+			<li id=\"2-3\"></li>\
+		</ul>\
+		<button onclick=\"onclick3()\">select</button>\
+		<ul>\
+			<li id=\"3-1\"></li>\
+			<li id=\"3-2\"></li>\
+			<li id=\"3-3\"></li>\
+		</ul>";
+		
+		document.getElementById("content").innerHTML = initial_content;
+		document.getElementById("1-1").innerHTML = backlogList[0];
+		document.getElementById("1-2").innerHTML = backlogList[4];
+		document.getElementById("1-3").innerHTML = backlogList[5];
+		document.getElementById("2-1").innerHTML = backlogList[1];
+		document.getElementById("2-2").innerHTML = backlogList[2];
+		document.getElementById("2-3").innerHTML = backlogList[3];
+		document.getElementById("3-1").innerHTML = backlogList[0];
+		document.getElementById("3-2").innerHTML = backlogList[2];
+		document.getElementById("3-3").innerHTML = backlogList[5];
+	} else {
+		document.getElementById("content").innerHTML = "<br> <img class=\"img\" src=\"" + localStorage.secondSprintImage + "\"><br>";
+		document.getElementById("nextButton").disabled = false;
+	}
+	
+	function onclick1() {
+		document.getElementById("content").innerHTML = "<br> <img class=\"img\" src=\"sprint_1_5_6.png\"><br>";
+		document.getElementById("nextButton").disabled = false;
+		localStorage.secondSprintImage = "sprint_2_3_4.png";
+	}
+
+	function onclick2() {
+		document.getElementById("content").innerHTML = "<br> <img class=\"img\" src=\"sprint_2_3_4.png\"><br>";
+		document.getElementById("nextButton").disabled = false;
+		localStorage.secondSprintImage = "sprint_1_5_6.png";
+	}
+
+	function onclick3() {
+		document.getElementById("content").innerHTML = "<br> <img class=\"img\" src=\"sprint_1_3_6.png\"><br>";
+		document.getElementById("nextButton").disabled = false;
+		localStorage.secondSprintImage = "sprint_2_4_5.png";
+	}
+</script>

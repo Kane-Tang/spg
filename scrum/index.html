@@ -1,0 +1,84 @@
+<!-- <button onclick="clearBox()"> clear!</button> -->
+<!-- <p id="dd">123</p> -->
+			
+<style>
+.button {
+	padding: 10px 10px;
+	font-size: 15px;
+}
+.img {
+	width: 1500;
+	height: 780;
+}
+</style>
+
+<title>Scrum Software Process Model</title>
+<h1>Scrum Software Process Model</h1>
+
+<br><br>
+Scrum Software Process Model
+<br>
+<img src="seke18PMscrum.jpg">
+<br>
+
+<b>
+<br><br>Stage:
+<font color=red>
+<div id="stage"><br></div><br>
+</font>
+
+<br>
+<button class="button" onclick="location.href='apage2.html';">next: abstract and design</button>
+<br>
+
+<br>
+<div>
+	<h1>Create a Product Backlog</h1>
+	The product backlog is a list of things to be done for a project. It is also known as a wish list since the product owner would 
+	ideally like all items in the list to be worked on. The product backlog is similar to listing out requirements and specifications 
+	for a project. The list is prioritized and broken out into tickets with details that could be technical or in the form of user 
+	stories. The product backlog changes over the course of the project as new requirements are added, modified or deleted. The 
+	product owner is responsible for keeping the product backlog current.
+	<br/><br/>
+	A typical Scrum backlog comprises the following different types of items:
+	<ul>
+		<li>Features</li>
+		<li>Bugs</li>
+		<li>Technical work</li>
+		<li>Knowledge acquisition</li>
+	</ul>
+
+	<h2>An example product backlog:</h2>
+	<ul>
+		<li id="list0"></li>
+		<li id="list1"></li>
+		<li id="list2"></li>
+		<li id="list3"></li>
+		<li id="list4"></li>
+		<li id="list5"></li>
+	</ul>
+
+	<img class="img" src="backlog_original.png"><br><br>
+</div>
+
+<script>
+	var backlogList = [];
+	backlogList[0] = "UI Interface";
+	backlogList[1] = "Homecare Staff Component";
+	backlogList[2] = "Emergency Manager Component";
+	backlogList[3] = "Gesture Recognizer Component";
+	backlogList[4] = "Database";
+	backlogList[5] = "Server";
+	localStorage.setItem("backlogList", JSON.stringify(backlogList));
+	if (localStorage.getItem("firstSprint")) {
+		localStorage.removeItem("firstSprint");
+	}
+
+	document.getElementById("list0").innerHTML = backlogList[0];
+	document.getElementById("list1").innerHTML = backlogList[1];
+	document.getElementById("list2").innerHTML = backlogList[2];
+	document.getElementById("list3").innerHTML = backlogList[3];
+	document.getElementById("list4").innerHTML = backlogList[4];
+	document.getElementById("list5").innerHTML = backlogList[5];
+</script>
+	

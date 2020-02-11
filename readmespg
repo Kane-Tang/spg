@@ -1,0 +1,15 @@
+Readme for SPG
+
+Please go to: http://ksiresearchorg.ipage.com/spg/
+
+Based upon your project's needs, please enter appropriate value for each parameter. If you do not use a parameter, you need not enter any value for that parameter. In the calculation of optimal software process model, that parameter will be ignored. 
+
+When you click on "submit", the various software process models and associated parametric values will be displayed.  The one with minimum parametric value is the optimal sofware process model.  You can select it to view the sofware process model and other resources.
+
+To reset the parameters for each software process model
+please go to: http://ksiresearchorg.ipage.com/spg/admin.html
+
+Your login name should be: pitt
+Your password should be: 1234
+
+You can then select a software process model and reset the parameters.  These will be remembered as the default parameters for that software process model.

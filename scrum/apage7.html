@@ -1,0 +1,55 @@
+<!-- <button onclick="clearBox()"> clear!</button> -->
+<!-- <p id="dd">123</p> -->
+			
+<style>
+	.button {
+		padding: 10px 10px;
+		font-size: 15px;
+	}
+</style>
+<title>Scrum Software Process Model</title>
+<h1>Scrum Software Process Model</h1>
+
+<br><br>
+Scrum Software Process Model
+<br>
+<img src="seke18PMscrum.jpg">
+<br>
+
+<b>
+<br><br>Stage:
+<br/>
+<font color=red size="5px">
+Adjust II
+<div id="stage"><br></div>
+</font>
+
+<button class="button" id="nextButton" visible="false" onclick="location.href='apage2.html';">next sprint</button>
+
+<div>
+	<h1>Final step</h1>
+	The final step of every sprint is the stage of product estimation. The product is evaluated in accordance with the team's
+	definition of "Done" and provided to the customer to obtain his feedback. Then a new sprint starts, and the cycle repeats.
+	<br/>
+	You can add more items to the product backlog if your team find it necessary. If there are items in the product backlog 
+	that are not yet been implememnted, then more sprints maybe needed; otherwise you may end the whole scrum lifecycle.
+	<br/>
+</div>
+
+<br><br>
+<div id="content"></div>
+
+<script>
+	var end = "<h1>End of Agile Software Process<h1/>\
+	<button class=\"button\" onclick=\"location.href='index.html';\">end the process</button>\
+	";
+
+	if (JSON.parse(localStorage.getItem("firstSprint"))) {
+		localStorage.setItem("firstSprint", JSON.stringify(false));
+		document.getElementById("nextButton").disabled = false;
+	} else {
+		document.getElementById("nextButton").disabled = true;
+		document.getElementById("content").innerHTML = end;
+	}
+
+</script>
