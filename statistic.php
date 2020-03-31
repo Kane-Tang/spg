@@ -3,15 +3,20 @@
   require_once("conn.php");
   $op = $_POST['op'];
   $query = "";
+  $startdate = $_POST["start"];
+  $enddate = $_POST["end"];
   $ret = array();
-  if($op == "check") $query = "SELECT type, COUNT(*), SUM(understand), SUM(clarity) From spg_tally GROUP BY type ORDER BY type";
-  else if($op == "clear") $query = "DELETE FROM spg_tally";
+  if($op == "check"){
+      $query = "SELECT type, COUNT(*), SUM(understand), SUM(clarity) From spg_tally WHERE timestamp BETWEEN '".$startdate."' AND '".$enddate."' GROUP BY type ORDER BY type";
+  }
+  else if($op == "clear"){
+      $query = "DELETE FROM spg_tally WHERE timestamp BETWEEN '".$startdate."' AND '".$enddate."'";
+  }
   else {
     $ret['err'] = 1;
     return;
   }
   $data = array();
-
   $modelName = $_POST['modelname'];
   if ($stmt = $conn->prepare($query)) {
       if(!$stmt->execute()) {

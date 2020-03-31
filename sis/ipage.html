@@ -1,25 +1,31 @@
-<title>Incremental Software Process Model</title>
+<title>SIS Software Process Model</title>
 <h1>SIS Software Process Model</h1>
 <script src="http://ksiresearchorg.ipage.com/spg20/js/jquery.js"></script>
 <script>
-function concentrator(){
-	var amount = $("#amount").val();
+function convert(){
+	var w1 = $("#w1").val();
+	var w2 = $("#w2").val();
+	var w3 = $("#w3").val();
 	$.ajax({
 		type: 'POST',
-		url: 'http://ksiresearchorg.ipage.com/chronobot/concentrator.php',
+		url: 'http://ksiresearchorg.ipage.com/chronobot/enumerator.php',
 		datatype: 'json',
-		data: {amount: amount},
+		data: {w1:w1, w2:w2, w3:w3},
 		success : function(){
 			alert("submission succeed");``
-			alert(amount);
+			alert(w3);
 		}
 	});
 	return false;
 }
 </script>
 
+<img src="siscircuit1.jpg">
+<br>
+
 <b>
-<font color=black>
+
+<font color=red>
 <br><br>Problem<br>
 <a href="http://ksiresearchorg.ipage.com/chronobot/event_detection.php">Execute</a>
 <br>
@@ -47,16 +53,11 @@ function concentrator(){
 <a href="ipage4.html">Go to next step</a>
 </font>
 
-<font color=red>
+<font color=black>
 <br><br>Concentrator<br>
 <a href="ipage3.html">Go back</a>
 <br>
 <a href="ipage5.html">Go to next step</a>
-<br>
-number of top candidates<input type="text" id="amount" name="paras" size="10" maxlength="400"
-				alt="comment1" /><br>
-<input type="submit" value="execute" alt="submit1"
-				onclick="concentrator()" />
 </font>
 
 <font color=black>
@@ -65,3 +66,7 @@ number of top candidates<input type="text" id="amount" name="paras" size="10" ma
 <br>
 <a href="ipage1.html">Go to next step</a>
 </font>
+
+
+
+

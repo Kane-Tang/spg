@@ -1,61 +1,64 @@
 <title>Incremental Software Process Model</title>
-<h1>Incremental Software Process Model</h1>
+<h1>SIS Software Process Model</h1>
+<script src="http://ksiresearchorg.ipage.com/spg20/js/jquery.js"></script>
+<script>
+function concentrator(){
+	var amount = $("#amount").val();
+	$.ajax({
+		type: 'POST',
+		url: 'http://ksiresearchorg.ipage.com/chronobot/concentrator.php',
+		datatype: 'json',
+		data: {amount: amount},
+		success : function(){
+			alert("submission succeed");``
+			alert(amount);
+		}
+	});
+	return false;
+}
+</script>
 
 <b>
 <font color=black>
-Project Plan<br>
-<a href="ipage1.html">Go back</a>
+<br><br>Problem<br>
+<a href="http://ksiresearchorg.ipage.com/chronobot/event_detection.php">Execute</a>
 <br>
-<a href="ipage1detail.html">Show details</a>
+<a href="ipage1.html">Go to next step</a>
+</font>
+
+<font color=black>
+<br><br>Enumerator<br>
+<a href="ipage.html">Go back</a>
 <br>
 <a href="ipage2.html">Go to next step</a>
 </font>
 
 <font color=black>
-<br><br>Requirements Specification<br>
+<br><br>Adaptor<br>
 <a href="ipage1.html">Go back</a>
-<br>
-<a href="ipage2detail.html">Show details</a>
 <br>
 <a href="ipage3.html">Go to next step</a>
 </font>
 
 <font color=black>
-<br><br>Object-oriented Analysis and Design<br>
+<br><br>Eliminator<br>
 <a href="ipage2.html">Go back</a>
-<br>
-<a href="ipage3detail.html">Show details</a>
 <br>
 <a href="ipage4.html">Go to next step</a>
 </font>
 
 <font color=black>
-<br><br>Coding<br>
+<br><br>Concentrator<br>
 <a href="ipage3.html">Go back</a>
-<br>
-<a href="ipage4detail.html">Show details</a>
 <br>
 <a href="ipage5.html">Go to next step</a>
 </font>
 
 <font color=red>
-<br><br>Testing<br>
+<br><br>Solution<br>
+<a href="http://ksiresearchorg.ipage.com/chronobot/select_type_normal.php">Execute</a>
+<br>
 <a href="ipage4.html">Go back</a>
 <br>
-<a href="ipage5detail.html">Show details</a>
-<br>
-<a href="ipage4b.html">Go to next increment</a>
-<br>
-<a href="ipage6.html">Go to next step</a>
+<a href="ipage1.html">Go to next step</a>
 </font>
-
-<font color=black>
-<br><br>Acceptance Testing<br>
-<a href="ipage5.html">Go back</a>
-<br>
-<a href="ipage6detail.html">Show details</a>
-<br>
-<a href="ipage6.html">Go to next step</a>
-</font>
-
-

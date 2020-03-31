@@ -1,9 +1,9 @@
 <?php
   session_start();
-  require_once("conn.php");
+  require_once("connection.php");
   $name = $_POST["name"];
   $psw = $_POST["psw"];
-  if ($stmt = $conn->prepare("SELECT * FROM spg_user WHERE username=? AND password=?")) {
+  if ($stmt = $conn->prepare("SELECT * FROM chronobot.users WHERE email=? AND password=?")) {
       $stmt->bind_param("ss",$name,$psw);
       $stmt->execute();
       if($stmt->fetch()) {
